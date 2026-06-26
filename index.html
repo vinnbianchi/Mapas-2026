@@ -414,10 +414,14 @@
     }
 
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-    // Caminho web relativo apontando para a pasta que você subiu
-    let caminho = `Mapas 2026/${fornecedor}/${fazenda}.${extensao}`;
+    // Remove o '_2026' do nome do arquivo caso ele use apenas o número puro (ex: '1050.pdf')
+    // Se o seu arquivo na pasta real se chamar '1050_2026.pdf', comente ou apague a linha abaixo:
+    let nomeArquivo = fazenda.replace('_2026', ''); 
     
-    // O encodeURI transforma espaços em %20 automaticamente para o link funcionar na web
+    // Monte o caminho relativo correto
+    let caminho = `Mapas 2026/${fornecedor}/${nomeArquivo}.${extensao}`;
+    
+    // Codifica os espaços para a web (%20)
     return encodeURI(caminho);
     }
 
