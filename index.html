@@ -414,10 +414,8 @@
     }
 
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-        const pastaRaiz = "C:/Users/vgbianchi/OneDrive - SA USINA CORURIPE AÇUCAR E ALCOOL/Área de Trabalho/SAFRA 2026/Mapas 2026/";
-        const caminhoBruto = `${pastaRaiz}${fornecedor}/${fazenda}.${extensao}`;
-        const caminhoConvertido = caminhoBruto.split('/').map(part => encodeURIComponent(part)).join('/');
-        return "file:///" + caminhoConvertido;
+    // Agora aponta para a pasta que está hospedada junto com o site
+    return `Mapas 2026/${fornecedor}/${fazenda}.${extensao}`;
     }
 
     function abrirMapa() {
