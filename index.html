@@ -72,6 +72,46 @@
             width: auto;
         }
 
+        /* Container para o Mapa do QGIS */
+        .qgis-map-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 1040px;
+            width: 100%;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .qgis-map-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2e7d32;
+            font-size: 18px;
+        }
+        .map-wrapper {
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #eaeaea;
+            max-height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .qgis-img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        .qgis-img:hover {
+            transform: scale(1.15);
+        }
+
         /* Dashboard principal */
         .dashboard {
             display: flex;
@@ -141,9 +181,9 @@
 
         /* Rodapé */
         .footer-info-box {
-            background-color: #9494933a;
-            border: 1px solid #e6952bef;
-            color: #000000;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
             padding: 15px 30px;
             border-radius: 8px;
             font-size: 14px;
@@ -154,7 +194,7 @@
             gap: 5px;
             align-items: center;
             text-align: center;
-            max-width: 300px;
+            max-width: 400px;
             width: 100%;
         }
         .footer-info-item {
@@ -168,7 +208,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #d19336;
+            background-color: #25d366;
             color: white;
             border-radius: 50px;
             text-align: center;
@@ -184,7 +224,7 @@
             transition: all 0.3s ease;
         }
         .whatsapp-float:hover {
-            background-color: #6e6a50;
+            background-color: #128c7e;
             transform: scale(1.05);
         }
         .whatsapp-icon {
@@ -196,8 +236,8 @@
 <body>
 
 <div class="header-container">
-    <img class="logo-coruripe" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb37nV2w2MUoPfUrYi45QPnhOqeMu-pcC6UYKDZGkoOQ&s" alt="Logo Usina Coruripe">
-    <h1 class="main-title">Mapas de Plantio 2026 - Unidade Campo Florido</h1>
+    <img class="logo-coruripe" src="https://www.usinacoruripe.com.br/wp-content/themes/coruripe/assets/images/logo.png" alt="Logo Usina Coruripe">
+    <h1 class="main-title">Mapas Plantio 2026 - Unidade Campo Florido</h1>
 </div>
 
 <!-- CAIXA DE BUSCA RÁPIDA POR CÓDIGO -->
@@ -207,6 +247,15 @@
         <input type="text" id="codigoBuscaRapida" class="search-input" placeholder="Digite apenas o código (ex: 1328)">
         <button type="button" class="btn-search" onclick="buscarRapido('pdf')">📄 Visualizar PDF</button>
         <button type="button" class="btn-search btn-dwg" onclick="buscarRapido('dwg')">📐 Baixar DWG</button>
+    </div>
+</div>
+
+<!-- SEÇÃO: MAPA DO QGIS -->
+<div class="qgis-map-container">
+    <h3>🗺️ Visão Geral das Áreas de Plantio (QGIS)</h3>
+    <div class="map-wrapper">
+        <!-- Caminho relativo da imagem do QGIS hospedada no repositório -->
+        <img class="qgis-img" src="Mapas_2026/mapa_geral_qgis.png" alt="Mapa Geral QGIS" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1000'">
     </div>
 </div>
 
@@ -300,15 +349,15 @@
 
 <div class="footer-info-box">
     <div class="footer-info-item">
-        Total de Mapas Cadastrados: <span id="totalMapas">0</span>
+        📊 Total de Mapas Cadastrados: <span id="totalMapas">0</span>
     </div>
     <div class="footer-info-item">
-        Última Atualização: <span>26/06/2026</span>
+        📅 Última Atualização: <span>26/06/2026</span>
     </div>
 </div>
 
 <!-- LINK DO BOTÃO DO WHATSAPP -->
-<a href="https://api.whatsapp.com/send?phone=5534997668139&text=Ol%C3%A1!%20Estou%20com%20uma%20d%C3%BAvida%20ou%20identifiquei%20um%20erro%20no%20Painel%20de%20Mapas%202026." class="whatsapp-float" target="_blank">
+<a href="https://api.whatsapp.com/send?phone=5534999999999&text=Ol%C3%A1!%20Estou%20com%20uma%20d%C3%BAvida%20ou%20identifiquei%20um%20erro%20no%20Painel%20de%20Mapas%202026." class="whatsapp-float" target="_blank">
     <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 1.981 14.062.962 11.45.962 6.011.962 1.587 5.332 1.583 10.76c-.001 1.662.436 3.284 1.265 4.718L1.87 20.353l5.02-1.314zM17.513 14.5c-.29-.146-1.72-.85-1.986-.947-.266-.097-.46-.146-.653.146-.193.29-.75.947-.919 1.14-.17.194-.339.219-.63.073-.29-.146-1.223-.45-2.33-1.44-.86-.767-1.44-1.716-1.61-2.007-.17-.29-.018-.447.127-.592.13-.13.29-.34.436-.509.145-.17.193-.291.29-.485.097-.194.049-.364-.025-.51-.073-.145-.653-1.573-.895-2.156-.235-.568-.475-.491-.653-.5-.17-.008-.364-.01-.557-.01-.193 0-.509.072-.776.364-.266.291-1.017.994-1.017 2.424s1.042 2.812 1.187 3.006c.145.194 2.051 3.132 4.969 4.39.693.3 1.236.479 1.658.613.698.222 1.332.191 1.834.115.56-.085 1.72-.703 1.962-1.382.242-.678.242-1.261.17-1.382-.073-.12-.266-.193-.556-.34z"/>
     </svg>
@@ -397,32 +446,16 @@
 
         if (fornecedorEncontrado && fazendaEncontrada) {
             const urlFinal = gerarUrlLocal(fornecedorEncontrado, fazendaEncontrada, extensao);
-            
-            if (extensao === "pdf") {
-                window.open(urlFinal, '_blank');
-            } else {
-                const linkDownload = document.createElement("a");
-                linkDownload.href = urlFinal;
-                linkDownload.download = `${fazendaEncontrada}.dwg`;
-                document.body.appendChild(linkDownload);
-                linkDownload.click();
-                document.body.removeChild(linkDownload);
-            }
+            window.open(urlFinal, '_blank');
         } else {
             alert(`O código "${termoBusca}" não foi encontrado em nenhum fornecedor cadastrado.`);
         }
     }
 
+    // CORREÇÃO CRÍTICA: Aponta para a pasta relativa web sem espaços
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-    // Remove o '_2026' do nome do arquivo caso ele use apenas o número puro (ex: '1050.pdf')
-    // Se o seu arquivo na pasta real se chamar '1050_2026.pdf', comente ou apague a linha abaixo:
-   
-    
-    // Monte o caminho relativo correto
-    let caminho = `Mapas-2026/${fornecedor}/${nomeArquivo}.${extensao}`;
-    
-    // Codifica os espaços para a web (%20)
-    return encodeURI(caminho);
+        let caminho = `Mapas_2026/${fornecedor}/${fazenda}.${extensao}`;
+        return encodeURI(caminho);
     }
 
     function abrirMapa() {
@@ -448,13 +481,7 @@
         }
 
         const urlFinal = gerarUrlLocal(fornecedor, fazenda, "dwg");
-        
-        const linkDownload = document.createElement("a");
-        linkDownload.href = urlFinal;
-        linkDownload.download = `${fazenda}.dwg`;
-        document.body.appendChild(linkDownload);
-        linkDownload.click();
-        document.body.removeChild(linkDownload);
+        window.open(urlFinal, '_blank');
     }
 </script>
 
