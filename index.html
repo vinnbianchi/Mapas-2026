@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Mapas - SAFRA 2026</title>
+    
+    <!-- BIBLIOTECAS DO MAPA INTERATIVO (Leaflet) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Plugin para ler o arquivo KML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/3.4.0/layer/vector/KML.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -72,7 +79,7 @@
             width: auto;
         }
 
-        /* Container para o Mapa do QGIS */
+        /* Container para o Mapa Interativo KML */
         .qgis-map-container {
             background-color: #fff;
             padding: 20px;
@@ -90,26 +97,13 @@
             color: #2e7d32;
             font-size: 18px;
         }
-        .map-wrapper {
-            overflow: hidden;
+        /* Definição do tamanho do mapa na tela */
+        #mapa-kml {
+            height: 450px;
+            width: 100%;
             border: 1px solid #ddd;
             border-radius: 6px;
             background-color: #eaeaea;
-            max-height: 450px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .qgis-img {
-            width: 100%;
-            height: auto;
-            max-height: 450px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-        }
-        .qgis-img:hover {
-            transform: scale(1.15);
         }
 
         /* Dashboard principal */
@@ -250,13 +244,10 @@
     </div>
 </div>
 
-<!-- SEÇÃO: MAPA DO QGIS -->
+<!-- MODIFICADO: DIV QUE VAI CONTER O MAPA INTERATIVO -->
 <div class="qgis-map-container">
-    <h3>🗺️ Visão Geral das Áreas de Plantio (QGIS)</h3>
-    <div class="map-wrapper">
-        <!-- Caminho relativo da imagem do QGIS hospedada no repositório -->
-        <img class="qgis-img" src="Mapas_2026/mapa_geral_qgis.png" alt="Mapa Geral QGIS" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1000'">
-    </div>
+    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KML)</h3>
+    <div id="mapa-kml"></div>
 </div>
 
 <div class="dashboard">
@@ -356,7 +347,6 @@
     </div>
 </div>
 
-<!-- LINK DO BOTÃO DO WHATSAPP -->
 <a href="https://api.whatsapp.com/send?phone=5534999999999&text=Ol%C3%A1!%20Estou%20com%20uma%20d%C3%BAvida%20ou%20identifiquei%20um%20erro%20no%20Painel%20de%20Mapas%202026." class="whatsapp-float" target="_blank">
     <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 1.981 14.062.962 11.45.962 6.011.962 1.587 5.332 1.583 10.76c-.001 1.662.436 3.284 1.265 4.718L1.87 20.353l5.02-1.314zM17.513 14.5c-.29-.146-1.72-.85-1.986-.947-.266-.097-.46-.146-.653.146-.193.29-.75.947-.919 1.14-.17.194-.339.219-.63.073-.29-.146-1.223-.45-2.33-1.44-.86-.767-1.44-1.716-1.61-2.007-.17-.29-.018-.447.127-.592.13-.13.29-.34.436-.509.145-.17.193-.291.29-.485.097-.194.049-.364-.025-.51-.073-.145-.653-1.573-.895-2.156-.235-.568-.475-.491-.653-.5-.17-.008-.364-.01-.557-.01-.193 0-.509.072-.776.364-.266.291-1.017.994-1.017 2.424s1.042 2.812 1.187 3.006c.145.194 2.051 3.132 4.969 4.39.693.3 1.236.479 1.658.613.698.222 1.332.191 1.834.115.56-.085 1.72-.703 1.962-1.382.242-.678.242-1.261.17-1.382-.073-.12-.266-.193-.556-.34z"/>
@@ -365,7 +355,6 @@
 </a>
 
 <script>
-    // Banco de dados limpo (Apenas os códigos das fazendas)
     const dadosMapas = {
         "Ademir_2026": ["005_2026", "126_2026", "438_2026", "966_2026", "1202_2026"],
         "Alemar_2026": ["294_2026", "475_2026", "516_2026", "593_2026", "999_2026", "1034_2026", "1140_2026", "1344_2026", "1346_2026"],
@@ -389,6 +378,37 @@
         "Silvio JR_2026": ["011_2026", "197_2026", "352_2026", "468_2026", "611_2026", "626_2026", "665_2026", "668_2026", "751_2026", "935_2026", "940_2026", "1014_2026", "1243_2026"],
         "Silvio Neto_2026": ["982_2026", "1002_2026", "1012_2026"]
     };
+
+    // INICIALIZAÇÃO DO MAPA DENTRO DO SITE
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializa o mapa focado em Campo Florido (coordenadas aproximadas)
+        const map = L.map('mapa-kml').setView([-19.76, -48.57], 11);
+
+        // Adiciona um fundo amigável (OpenStreetMap padrão)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // CONFIGURAÇÃO DO SEU ARQUIVO KML
+        // Certifique-se de salvar o arquivo com o nome 'mapa_geral.kml' solto na raiz do seu GitHub
+        const kmlUrl = 'mapa_geral.kml'; 
+
+        fetch(kmlUrl)
+            .then(res => res.text())
+            .then(kmlText => {
+                const parser = new DOMParser();
+                const kmlDom = parser.parseFromString(kmlText, 'text/xml');
+                const track = new L.KML(kmlDom);
+                map.addLayer(track);
+
+                // Ajusta o zoom do mapa automaticamente para enquadrar todos os talhões do KML
+                const bounds = track.getBounds();
+                if (bounds.isValid()) {
+                    map.fitBounds(bounds);
+                }
+            })
+            .catch(err => console.error("Erro ao carregar o arquivo KML: ", err));
+    });
 
     function calcularTotalMapas() {
         let total = 0;
@@ -452,7 +472,6 @@
         }
     }
 
-    // CORREÇÃO CRÍTICA: Aponta para a pasta relativa web sem espaços
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
         let caminho = `${fornecedor}/${fazenda}.${extensao}`;
         return encodeURI(caminho);
