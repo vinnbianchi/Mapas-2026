@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Mapas - SAFRA 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Cabeçalho com Logo e Título */
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .logo-coruripe {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .main-title {
+            color: #2e7d32;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Seção de Busca Rápida */
+        .search-box-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 1040px;
+            width: 100%;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+            border-top: 4px solid #2e7d32;
+        }
+        .search-box-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2e7d32;
+            font-size: 18px;
+        }
+        .search-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .btn-search {
+            padding: 10px 20px;
+            font-size: 15px;
+            margin-top: 0;
+            width: auto;
+        }
+
+        /* Dashboard principal */
+        .dashboard {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1040px;
+            justify-content: center;
+            flex-wrap: wrap; 
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 320px;
+            max-width: 500px;
+            position: relative;
+        }
+        h2 {
+            color: #dd7520;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .container.dwg h2 {
+            color: #1976d2;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #dd7520;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #b55a14;
+        }
+        .btn-dwg {
+            background-color: #1976d2;
+        }
+        .btn-dwg:hover {
+            background-color: #115293;
+        }
+
+        /* Rodapé */
+        .footer-info-box {
+            background-color: #9494933a;
+            border: 1px solid #e6952bef;
+            color: #000000;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            text-align: center;
+            max-width: 300px;
+            width: 100%;
+        }
+        .footer-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* BOTÃO FLUTUANTE DO WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #d19336;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            background-color: #6e6a50;
+            transform: scale(1.05);
+        }
+        .whatsapp-icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <img class="logo-coruripe" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb37nV2w2MUoPfUrYi45QPnhOqeMu-pcC6UYKDZGkoOQ&s" alt="Logo Usina Coruripe">
+    <h1 class="main-title">Mapas de Plantio 2026 - Unidade Campo Florido</h1>
+</div>
+
+<!-- CAIXA DE BUSCA RÁPIDA POR CÓDIGO -->
+<div class="search-box-container">
+    <h3>🔍 Busca Rápida por Código da Fazenda</h3>
+    <div class="search-group">
+        <input type="text" id="codigoBuscaRapida" class="search-input" placeholder="Digite apenas o código (ex: 1328)">
+        <button type="button" class="btn-search" onclick="buscarRapido('pdf')">📄 Visualizar PDF</button>
+        <button type="button" class="btn-search btn-dwg" onclick="buscarRapido('dwg')">📐 Baixar DWG</button>
+    </div>
+</div>
+
+<div class="dashboard">
+    
+    <!-- CONTEINER 1: CONSULTA PDF -->
+    <div class="container">
+        <h2>Consulta de Mapas PDF</h2>
+        
+        <div class="form-group">
+            <label for="fornecedorPdf">Fornecedor:</label>
+            <select id="fornecedorPdf" onchange="atualizarFazendas('Pdf')">
+                <option value="">-- Selecione o Fornecedor --</option>
+                <option value="Alemar_2026">Alemar</option>
+                <option value="Ademir_2026">Ademir</option>
+                <option value="Almerita_2026">Almerita</option> 
+                <option value="Amadeu_2026">Amadeu</option>
+                <option value="Beatriz_2026">Beatriz</option>
+                <option value="Brunozzi_2026">Brunozzi</option>
+                <option value="Carlos Henrique_2026">Carlos Henrique</option>
+                <option value="Celia Drunsta_2026">Celia Drunsta</option>
+                <option value="Cerradao_2026">Cerradao</option>
+                <option value="Engelberto_2026">Engelberto</option>
+                <option value="Guilherme_2026">Guilherme</option>
+                <option value="Igor Gambarato_2026">Igor Gambarato</option>
+                <option value="Jose Francisco_2026">Jose Francisco</option>
+                <option value="Luciano Contim_2026">Luciano Contim</option>
+                <option value="Lucila_2026">Lucila</option>
+                <option value="Maria Jose Gambarato_2026">Maria Jose Gambarato</option>
+                <option value="Nelson_2026">Nelson</option>
+                <option value="Pedro Junior_2026">Pedro Junior</option>
+                <option value="Primo_2026">Primo Bertin</option>
+                <option value="Silvio JR_2026">Silvio JR</option>
+                <option value="Silvio Neto_2026">Silvio Neto</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fazendaPdf">Fazenda (Código/Mapa):</label>
+            <select id="fazendaPdf" disabled>
+                <option value="">-- Selecione primeiro o fornecedor --</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="abrirMapa()">Visualizar Mapa (PDF)</button>
+    </div>
+
+    <!-- CONTEINER 2: DOWNLOAD DWG -->
+    <div class="container dwg">
+        <h2>Baixar Mapas DWG</h2>
+        
+        <div class="form-group">
+            <label for="fornecedorDwg">Fornecedor:</label>
+            <select id="fornecedorDwg" onchange="atualizarFazendas('Dwg')">
+                <option value="">-- Selecione o Fornecedor --</option>
+                <option value="Alemar_2026">Alemar</option>
+                <option value="Ademir_2026">Ademir</option>
+                <option value="Almerita_2026">Almerita</option> 
+                <option value="Amadeu_2026">Amadeu</option>
+                <option value="Beatriz_2026">Beatriz</option>
+                <option value="Brunozzi_2026">Brunozzi</option>
+                <option value="Carlos Henrique_2026">Carlos Henrique</option>
+                <option value="Celia Drunsta_2026">Celia Drunsta</option>
+                <option value="Cerradao_2026">Cerradao</option>
+                <option value="Engelberto_2026">Engelberto</option>
+                <option value="Guilherme_2026">Guilherme</option>
+                <option value="Igor Gambarato_2026">Igor Gambarato</option>
+                <option value="Jose Francisco_2026">Jose Francisco</option>
+                <option value="Luciano Contim_2026">Luciano Contim</option>
+                <option value="Lucila_2026">Lucila</option>
+                <option value="Maria Jose Gambarato_2026">Maria Jose Gambarato</option>
+                <option value="Nelson_2026">Nelson</option>
+                <option value="Pedro Junior_2026">Pedro Junior</option>
+                <option value="Primo_2026">Primo Bertin</option>
+                <option value="Silvio JR_2026">Silvio JR</option>
+                <option value="Silvio Neto_2026">Silvio Neto</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fazendaDwg">Fazenda (Código/Mapa):</label>
+            <select id="fazendaDwg" disabled>
+                <option value="">-- Selecione primeiro o fornecedor --</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn-dwg" onclick="baixarDwg()">Baixar Arquivo (DWG)</button>
+    </div>
+
+</div>
+
+<div class="footer-info-box">
+    <div class="footer-info-item">
+        Total de Mapas Cadastrados: <span id="totalMapas">0</span>
+    </div>
+    <div class="footer-info-item">
+        Última Atualização: <span>26/06/2026</span>
+    </div>
+</div>
+
+<!-- LINK DO BOTÃO DO WHATSAPP -->
+<a href="https://api.whatsapp.com/send?phone=5534997668139&text=Ol%C3%A1!%20Estou%20com%20uma%20d%C3%BAvida%20ou%20identifiquei%20um%20erro%20no%20Painel%20de%20Mapas%202026." class="whatsapp-float" target="_blank">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 1.981 14.062.962 11.45.962 6.011.962 1.587 5.332 1.583 10.76c-.001 1.662.436 3.284 1.265 4.718L1.87 20.353l5.02-1.314zM17.513 14.5c-.29-.146-1.72-.85-1.986-.947-.266-.097-.46-.146-.653.146-.193.29-.75.947-.919 1.14-.17.194-.339.219-.63.073-.29-.146-1.223-.45-2.33-1.44-.86-.767-1.44-1.716-1.61-2.007-.17-.29-.018-.447.127-.592.13-.13.29-.34.436-.509.145-.17.193-.291.29-.485.097-.194.049-.364-.025-.51-.073-.145-.653-1.573-.895-2.156-.235-.568-.475-.491-.653-.5-.17-.008-.364-.01-.557-.01-.193 0-.509.072-.776.364-.266.291-1.017.994-1.017 2.424s1.042 2.812 1.187 3.006c.145.194 2.051 3.132 4.969 4.39.693.3 1.236.479 1.658.613.698.222 1.332.191 1.834.115.56-.085 1.72-.703 1.962-1.382.242-.678.242-1.261.17-1.382-.073-.12-.266-.193-.556-.34z"/>
+    </svg>
+    Dúvidas ou Erros?
+</a>
+
+<script>
+    // Banco de dados limpo (Apenas os códigos das fazendas)
+    const dadosMapas = {
+        "Ademir_2026": ["005_2026", "126_2026", "438_2026", "966_2026", "1202_2026"],
+        "Alemar_2026": ["294_2026", "475_2026", "516_2026", "593_2026", "999_2026", "1034_2026", "1140_2026", "1344_2026", "1346_2026"],
+        "Almerita_2026": ["139_2026", "382_2026", "638_2026", "938_2026", "1078_2026", "1239_2026"],
+        "Amadeu_2026": ["120_2026", "536_2026"],
+        "Beatriz_2026": ["974_2026", "980_2026"],
+        "Brunozzi_2026": ["006_2026", "007_2026", "037_2026", "038_2026", "088_2026", "090_2026", "096_2026", "121_2026", "157_2026", "158_2026", "160_2026", "169_2026", "299_2026", "329_2026", "330_2026", "434_2026", "490_2026", "494_2026", "627_2026", "653_2026", "921_2026", "997_2026", "1041_2026", "1051_2026", "1087_2026", "1088_2026", "1093_2026", "1129_2026", "1132_2026", "1133_2026", "1137_2026", "1139_2026", "1252_2026", "1253_2026", "1259_2026", "1263_2026", "1264_2026", "1328_2026"],
+        "Carlos Henrique_2026": ["610_2026", "624_2026", "634_2026", "1335_2026", "1338_2026"],
+        "Celia Drunsta_2026": ["150_2026"],
+        "Cerradao_2026": ["53006_2026", "53007_2026"],
+        "Engelberto_2026": ["687_2026", "993_2026", "1020_2026", "1021_2026", "1123_2026"],
+        "Guilherme_2026": ["100_2026", "353_2026", "371_2026", "559_2026", "941_2026", "1080_2026", "1175_2026", "1311_2026", "1324_2026", "1332_2026", "1333_2026"],
+        "Igor Gambarato_2026": ["1227_2026", "1348_2026"],
+        "Jose Francisco_2026": ["1001_2026", "1015_2026", "1124_2026", "1196_2026"],
+        "Luciano Contim_2026": ["209_2026", "211_2026", "282_2026", "435_2026", "960_2026", "1331_2026"],
+        "Lucila_2026": ["1050_2026", "1206_2026"],
+        "Maria Jose Gambarato_2026": ["524_2026"],
+        "Nelson_2026": ["077_2026", "131_2026", "205_2026", "323_2026", "1330_2026"],
+        "Pedro Junior_2026": ["267_2026", "1329_2026"],
+        "Primo_2026": ["216_2026", "441_2026", "476_2026", "976_2026", "989_2026"],
+        "Silvio JR_2026": ["011_2026", "197_2026", "352_2026", "468_2026", "611_2026", "626_2026", "665_2026", "668_2026", "751_2026", "935_2026", "940_2026", "1014_2026", "1243_2026"],
+        "Silvio Neto_2026": ["982_2026", "1002_2026", "1012_2026"]
+    };
+
+    function calcularTotalMapas() {
+        let total = 0;
+        for (let fornecedor in dadosMapas) {
+            total += dadosMapas[fornecedor].length;
+        }
+        document.getElementById("totalMapas").textContent = total;
+    }
+
+    window.onload = calcularTotalMapas;
+
+    function atualizarFazendas(tipo) {
+        const fornecedorSelect = document.getElementById("fornecedor" + tipo);
+        const fazendaSelect = document.getElementById("fazenda" + tipo);
+        const fornecedorSelecionado = fornecedorSelect.value;
+
+        fazendaSelect.innerHTML = `<option value="">-- Selecione a Fazenda --</option>`;
+
+        if (fornecedorSelecionado && dadosMapas[fornecedorSelecionado]) {
+            fazendaSelect.disabled = false;
+            
+            dadosMapas[fornecedorSelecionado].forEach(codigo => {
+                let option = document.createElement("option");
+                option.value = codigo;
+                option.textContent = codigo + "." + tipo.toLowerCase();
+                fazendaSelect.appendChild(option);
+            });
+        } else {
+            fazendaSelect.disabled = true;
+            fazendaSelect.innerHTML = `<option value="">-- Selecione primeiro o fornecedor --</option>`;
+        }
+    }
+
+    function buscarRapido(extensao) {
+        const termoBusca = document.getElementById("codigoBuscaRapida").value.trim();
+        
+        if (!termoBusca) {
+            alert("Por favor, digite o código da fazenda.");
+            return;
+        }
+
+        const codigoFormatado = termoBusca.includes("_2026") ? termoBusca : termoBusca + "_2026";
+        
+        let fornecedorEncontrado = null;
+        let fazendaEncontrada = null;
+
+        for (let fornecedor in dadosMapas) {
+            let busca = dadosMapas[fornecedor].find(codigo => codigo === codigoFormatado);
+            if (busca) {
+                fornecedorEncontrado = fornecedor;
+                fazendaEncontrada = busca;
+                break;
+            }
+        }
+
+        if (fornecedorEncontrado && fazendaEncontrada) {
+            const urlFinal = gerarUrlLocal(fornecedorEncontrado, fazendaEncontrada, extensao);
+            
+            if (extensao === "pdf") {
+                window.open(urlFinal, '_blank');
+            } else {
+                const linkDownload = document.createElement("a");
+                linkDownload.href = urlFinal;
+                linkDownload.download = `${fazendaEncontrada}.dwg`;
+                document.body.appendChild(linkDownload);
+                linkDownload.click();
+                document.body.removeChild(linkDownload);
+            }
+        } else {
+            alert(`O código "${termoBusca}" não foi encontrado em nenhum fornecedor cadastrado.`);
+        }
+    }
+
+    function gerarUrlLocal(fornecedor, fazenda, extensao) {
+        const pastaRaiz = "C:/Users/vgbianchi/OneDrive - SA USINA CORURIPE AÇUCAR E ALCOOL/Área de Trabalho/SAFRA 2026/Mapas 2026/";
+        const caminhoBruto = `${pastaRaiz}${fornecedor}/${fazenda}.${extensao}`;
+        const caminhoConvertido = caminhoBruto.split('/').map(part => encodeURIComponent(part)).join('/');
+        return "file:///" + caminhoConvertido;
+    }
+
+    function abrirMapa() {
+        const fornecedor = document.getElementById("fornecedorPdf").value;
+        const fazenda = document.getElementById("fazendaPdf").value;
+
+        if (!fornecedor || !fazenda) {
+            alert("Por favor, selecione o Fornecedor e a Fazenda para o PDF.");
+            return;
+        }
+
+        const urlFinal = gerarUrlLocal(fornecedor, fazenda, "pdf");
+        window.open(urlFinal, '_blank');
+    }
+
+    function baixarDwg() {
+        const fornecedor = document.getElementById("fornecedorDwg").value;
+        const fazenda = document.getElementById("fazendaDwg").value;
+
+        if (!fornecedor || !fazenda) {
+            alert("Por favor, selecione o Fornecedor e a Fazenda para o DWG.");
+            return;
+        }
+
+        const urlFinal = gerarUrlLocal(fornecedor, fazenda, "dwg");
+        
+        const linkDownload = document.createElement("a");
+        linkDownload.href = urlFinal;
+        linkDownload.download = `${fazenda}.dwg`;
+        document.body.appendChild(linkDownload);
+        linkDownload.click();
+        document.body.removeChild(linkDownload);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>EXP. LUCAN - 3HA.kml</name>
+	<Style id="inline">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="inline0">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="inline1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#inline</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#inline0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<name>EXP. LUCAN - 3HA</name>
+		<styleUrl>#inline1</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						-48.8196388234438,-19.68003868224935,0 -48.81989667881166,-19.68018966516755,0 -48.820142416004,-19.68010534027452,0 -48.82032856077415,-19.6797457553762,0 -48.82062446753189,-19.67948158283307,0 -48.82099403902225,-19.67907697008428,0 -48.82146455484309,-19.67895062648711,0 -48.82169879060658,-19.67845137728565,0 -48.82182295944084,-19.67774366421925,0 -48.82165037686327,-19.67692928136911,0 -48.82135478713694,-19.67619352983532,0 -48.82107675647966,-19.67573359033907,0 -48.82044982522213,-19.67576547931119,0 -48.82055034151089,-19.67555179661901,0 -48.82094625047998,-19.67543001438913,0 -48.82082591919395,-19.67506492794653,0 -48.82064477261013,-19.67467294469878,0 -48.82038885622684,-19.67467876846766,0 -48.82053122716214,-19.67500624417546,0 -48.82040071661883,-19.67571563204216,0 -48.8212108871268,-19.67676264443283,0 -48.82122806686884,-19.67755643142736,0 -48.82090066884782,-19.67845385966162,0 -48.82059647765136,-19.67917542251914,0 -48.8202135639652,-19.67969887459757,0 -48.82000655633379,-19.67993976909734,0 -48.8196388234438,-19.68003868224935,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+		<atom:link rel="app" href="https://www.google.com/earth/about/versions/#earth-pro" title="Google Earth Pro 7.3.6.10201"></atom:link>
+	</Placemark>
+</Document>
+</kml>

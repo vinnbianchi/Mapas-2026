@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>EXP. LUCAN 4 - 1,4HA.kml</name>
+	<Style id="inline">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="inline0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#inline</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#inline1</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="inline1">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Placemark>
+		<name>EXP. LUCAN 4 - 1,4HA</name>
+		<styleUrl>#inline0</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						-48.83573990569708,-19.66365762923595,0 -48.83592154128886,-19.66412426064209,0 -48.83577590969385,-19.66467564968146,0 -48.83583583754404,-19.66518593750076,0 -48.83586420529502,-19.66552172166335,0 -48.83588478595551,-19.66582768341632,0 -48.83604999799859,-19.66601476218421,0 -48.83625661706229,-19.66617595149029,0 -48.83602727625571,-19.66673995016659,0 -48.83559439201821,-19.66650164410818,0 -48.83553511182571,-19.66551417467995,0 -48.83550157550083,-19.66503998261902,0 -48.83542076380098,-19.66428149716197,0 -48.83542206166424,-19.66390699293892,0 -48.83573990569708,-19.66365762923595,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+		<atom:link rel="app" href="https://www.google.com/earth/about/versions/#earth-pro" title="Google Earth Pro 7.3.6.10201"></atom:link>
+	</Placemark>
+</Document>
+</kml>
