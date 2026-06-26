@@ -454,7 +454,7 @@
 
     // CORREÇÃO CRÍTICA: Aponta para a pasta relativa web sem espaços
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-        let caminho = `Mapas-2026/${fornecedor}/${fazenda}.${extensao}`;
+        let caminho = `${fornecedor}/${fazenda}.${extensao}`;
         return encodeURI(caminho);
     }
 
