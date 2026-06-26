@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Mapas - SAFRA 2026</title>
     
-    <!-- BIBLIOTECAS DO MAPA INTERATIVO (Leaflet) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- Plugin para ler o arquivo KML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/3.4.0/layer/vector/KML.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/leaflet-kmz@1.0.8/dist/leaflet-kmz.js"></script>
 
     <style>
         body {
@@ -79,7 +79,7 @@
             width: auto;
         }
 
-        /* Container para o Mapa Interativo KML */
+        /* Container para o Mapa Interativo KMZ */
         .qgis-map-container {
             background-color: #fff;
             padding: 20px;
@@ -98,7 +98,7 @@
             font-size: 18px;
         }
         /* Definição do tamanho do mapa na tela */
-        #mapa-kml {
+        #mapa-kmz {
             height: 450px;
             width: 100%;
             border: 1px solid #ddd;
@@ -234,7 +234,6 @@
     <h1 class="main-title">Mapas Plantio 2026 - Unidade Campo Florido</h1>
 </div>
 
-<!-- CAIXA DE BUSCA RÁPIDA POR CÓDIGO -->
 <div class="search-box-container">
     <h3>🔍 Busca Rápida por Código da Fazenda</h3>
     <div class="search-group">
@@ -244,15 +243,13 @@
     </div>
 </div>
 
-<!-- MODIFICADO: DIV QUE VAI CONTER O MAPA INTERATIVO -->
 <div class="qgis-map-container">
-    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KML)</h3>
-    <div id="mapa-kml"></div>
+    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KMZ)</h3>
+    <div id="mapa-kmz"></div>
 </div>
 
 <div class="dashboard">
     
-    <!-- CONTEINER 1: CONSULTA PDF -->
     <div class="container">
         <h2>Consulta de Mapas PDF</h2>
         
@@ -294,7 +291,6 @@
         <button type="button" onclick="abrirMapa()">Visualizar Mapa (PDF)</button>
     </div>
 
-    <!-- CONTEINER 2: DOWNLOAD DWG -->
     <div class="container dwg">
         <h2>Baixar Mapas DWG</h2>
         
@@ -379,35 +375,31 @@
         "Silvio Neto_2026": ["982_2026", "1002_2026", "1012_2026"]
     };
 
-    // INICIALIZAÇÃO DO MAPA DENTRO DO SITE
+    // INICIALIZAÇÃO DO MAPA KMZ DENTRO DO SITE
     document.addEventListener("DOMContentLoaded", function() {
-        // Inicializa o mapa focado em Campo Florido (coordenadas aproximadas)
-        const map = L.map('mapa-kml').setView([-19.76, -48.57], 11);
+        // Inicializa o mapa focado na região aproximada de Campo Florido
+        const map = L.map('mapa-kmz').setView([-19.76, -48.57], 11);
 
-        // Adiciona um fundo amigável (OpenStreetMap padrão)
+        // Adiciona mapa de fundo (OpenStreetMap padrão)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // CONFIGURAÇÃO DO SEU ARQUIVO KML
-        // Certifique-se de salvar o arquivo com o nome 'mapa_geral.kml' solto na raiz do seu GitHub
-        const kmlUrl = 'mapa_geral.kml'; 
+        // Inicializa o leitor de arquivos KMZ
+        const kmzControl = L.kmzLayer().addTo(map);
 
-        fetch(kmlUrl)
-            .then(res => res.text())
-            .then(kmlText => {
-                const parser = new DOMParser();
-                const kmlDom = parser.parseFromString(kmlText, 'text/xml');
-                const track = new L.KML(kmlDom);
-                map.addLayer(track);
+        // Nome exato do seu arquivo hospedado na raiz do GitHub
+        const kmzUrl = 'mapa_geral.kmz'; 
 
-                // Ajusta o zoom do mapa automaticamente para enquadrar todos os talhões do KML
-                const bounds = track.getBounds();
-                if (bounds.isValid()) {
-                    map.fitBounds(bounds);
-                }
-            })
-            .catch(err => console.error("Erro ao carregar o arquivo KML: ", err));
+        // Carrega o arquivo KMZ e enquadra na tela automaticamente
+        kmzControl.load(kmzUrl);
+
+        kmzControl.on('load', function(e) {
+            const bounds = e.layer.getBounds();
+            if (bounds.isValid()) {
+                map.fitBounds(bounds);
+            }
+        });
     });
 
     function calcularTotalMapas() {
