@@ -341,27 +341,13 @@
         "Lucila_2026": ["1050_2026", "1206_2026"]
     };
 
-    // INICIALIZAÇÃO DO MAPA USANDO A API DE RENDERIZAÇÃO DO GOOGLE MAPS (Ignora o limite de 5MB)
+    // INICIALIZAÇÃO DO MAPA COMPARTILHADO VIA GOOGLE MY MAPS
     document.addEventListener("DOMContentLoaded", function() {
-        // Enquadramento inicial focado na região de Campo Florido - MG
-        const map = L.map('mapa-kmz').setView([-19.76, -48.57], 11);
-
-        // Adiciona a camada de mapa base (Satélite Híbrido para ver os talhões com clareza)
-        L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-            attribution: '© Google Maps'
-        }).addTo(map);
-
-        // Constrói dinamicamente o link público do arquivo hospedado no seu GitHub Pages
-        const nomeUsuario = window.location.hostname.split('.')[0]; 
-        const nomeRepositorio = window.location.pathname.split('/')[1];
-        const urlKmlPublico = `https://${nomeUsuario}.github.io/${nomeRepositorio}/mapa_geral.kmz`;
-
-        // Utiliza o interpretador do Google KML em tempo real para desenhar as linhas pesadas na tela
-        const renderizadorGoogleUrl = `https://maps.google.com/maps/api/kml?url=${encodeURIComponent(urlKmlPublico)}&v=${new Date().getTime()}`;
-
-        // Cria um contêiner iframe transparente e injeta o resultado processado
+        // Altere o link abaixo para o link de incorporação do seu Google My Maps
+        const mapaGeralUrl = "https://www.google.com/maps/d/embed?mid=https://www.google.com/maps/d/edit?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&usp=sharing";
+        
         const containerMapa = document.getElementById('mapa-kmz');
-        containerMapa.innerHTML = `<iframe src="https://maps.google.com/maps?q=url:${encodeURIComponent(urlKmlPublico)}&output=embed" width="100%" height="100%" style="border:0; border-radius:6px;" allowfullscreen=""></iframe>`;
+        containerMapa.innerHTML = `<iframe src="${mapaGeralUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
     });
 
     function calcularTotalMapas() {
