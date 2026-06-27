@@ -342,13 +342,25 @@
     };
 
     // INICIALIZAÇÃO DO MAPA COMPARTILHADO VIA GOOGLE MY MAPS
-    document.addEventListener("DOMContentLoaded", function() {
-        // Altere o link abaixo para o link de incorporação do seu Google My Maps
-        const mapaGeralUrl = "https://www.google.com/maps/d/embed?mid=https://www.google.com/maps/d/u/0/edit?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&usp=sharing";
-        
-        const containerMapa = document.getElementById('mapa-kmz');
-        containerMapa.innerHTML = `<iframe src="${mapaGeralUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    // Substitua o link abaixo pelo link de incorporação (compartilhar -> incorporar) do seu My Maps
+    const mapaGeralUrl = "https://www.google.com/maps/d/embed?mid=https://www.google.com/maps/d/edit?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&usp=sharing";
+    
+    const containerMapa = document.getElementById('mapa-kmz');
+    containerMapa.innerHTML = `<iframe src="${mapaGeralUrl}" width="100%" height="100%" style="border:0; border-radius:6px;" allowfullscreen="" loading="lazy"></iframe>`;
+});
+
+function calcularTotalMapas() {
+    let total = 0;
+    for (let fornecedor in dadosMapas) {
+        total += dadosMapas[fornecedor].length;
+    }
+    document.getElementById("totalMapas").textContent = total;
+}
+
+window.onload = calcularTotalMapas;
+
+// Mantém as demais funções de atualizarFazendas, abrirMapa e buscarRapido iguais abaixo...
 
     function calcularTotalMapas() {
         let total = 0;
