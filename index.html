@@ -74,30 +74,23 @@
         }
 
         /* Container para o Google Maps */
-        .maps-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            max-width: 1040px;
-            width: 100%;
-            margin-bottom: 25px;
-            box-sizing: border-box;
-            text-align: center;
+        .map-container {
+          width: 100%;
+          height: 480px; /* A altura final que você quer que o mapa tenha */
+          overflow: hidden; /* Esconde tudo o que passar dos limites da div */
+          position: relative;
+          border: 1px solid #ccc; /* Opcional: borda para o mapa */
+          border-radius: 8px;    /* Opcional: cantos arredondados */
         }
-        .maps-container h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #2e7d32;
-            font-size: 18px;
-        }
-        /* Definição do tamanho do iframe do Google Maps */
-        #mapa-google {
-            height: 450px;
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background-color: #eaeaea;
+
+        .map-container iframe {
+          position: absolute;
+          top: -55px; /* Empurra o iframe 55px para cima, escondendo a barra preta */
+          left: 0;
+          width: 100%;
+          /* A altura do iframe deve ser a altura do container + os 55px que escondemos */
+          height: 535px; 
+          border: none;
         }
 
         /* Dashboard principal */
@@ -239,7 +232,7 @@
 
 <div class="maps-container">
     <h3>Visão Interativa das Áreas de Plantio</h3>
-    <iframe id="mapa-google" src="https://www.google.com/maps/d/embed?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&ehbc=2E312F/preview" width="100%" height="480"></iframe>
+    <iframe id="mapa-google" src="https://www.google.com/maps/d/embed?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&ehbc=2E312F/preview" width="100%" height="530"></iframe>
 </div>
 
 
