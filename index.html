@@ -7,6 +7,9 @@
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/leaflet-kmz@1.0.8/dist/leaflet-kmz.js"></script>
 
     <style>
         body {
@@ -76,7 +79,7 @@
             width: auto;
         }
 
-        /* Container para o Mapa Interativo */
+        /* Container para o Mapa Interativo KMZ */
         .qgis-map-container {
             background-color: #fff;
             padding: 20px;
@@ -94,8 +97,9 @@
             color: #2e7d32;
             font-size: 18px;
         }
+        /* Definição do tamanho do mapa na tela */
         #mapa-kmz {
-            height: 500px;
+            height: 450px;
             width: 100%;
             border: 1px solid #ddd;
             border-radius: 6px;
@@ -240,7 +244,7 @@
 </div>
 
 <div class="qgis-map-container">
-    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KMZ Geral)</h3>
+    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KMZ)</h3>
     <div id="mapa-kmz"></div>
 </div>
 
@@ -253,8 +257,8 @@
             <label for="fornecedorPdf">Fornecedor:</label>
             <select id="fornecedorPdf" onchange="atualizarFazendas('Pdf')">
                 <option value="">-- Selecione o Fornecedor --</option>
-                <option value="Ademir_2026">Ademir</option>
                 <option value="Alemar_2026">Alemar</option>
+                <option value="Ademir_2026">Ademir</option>
                 <option value="Almerita_2026">Almerita</option> 
                 <option value="Amadeu_2026">Amadeu</option>
                 <option value="Beatriz_2026">Beatriz</option>
@@ -263,7 +267,17 @@
                 <option value="Celia Drunsta_2026">Celia Drunsta</option>
                 <option value="Cerradao_2026">Cerradao</option>
                 <option value="Engelberto_2026">Engelberto</option>
+                <option value="Guilherme_2026">Guilherme</option>
+                <option value="Igor Gambarato_2026">Igor Gambarato</option>
+                <option value="Jose Francisco_2026">Jose Francisco</option>
+                <option value="Luciano Contim_2026">Luciano Contim</option>
                 <option value="Lucila_2026">Lucila</option>
+                <option value="Maria Jose Gambarato_2026">Maria Jose Gambarato</option>
+                <option value="Nelson_2026">Nelson</option>
+                <option value="Pedro Junior_2026">Pedro Junior</option>
+                <option value="Primo_2026">Primo Bertin</option>
+                <option value="Silvio JR_2026">Silvio JR</option>
+                <option value="Silvio Neto_2026">Silvio Neto</option>
             </select>
         </div>
 
@@ -284,8 +298,8 @@
             <label for="fornecedorDwg">Fornecedor:</label>
             <select id="fornecedorDwg" onchange="atualizarFazendas('Dwg')">
                 <option value="">-- Selecione o Fornecedor --</option>
-                <option value="Ademir_2026">Ademir</option>
                 <option value="Alemar_2026">Alemar</option>
+                <option value="Ademir_2026">Ademir</option>
                 <option value="Almerita_2026">Almerita</option> 
                 <option value="Amadeu_2026">Amadeu</option>
                 <option value="Beatriz_2026">Beatriz</option>
@@ -294,7 +308,17 @@
                 <option value="Celia Drunsta_2026">Celia Drunsta</option>
                 <option value="Cerradao_2026">Cerradao</option>
                 <option value="Engelberto_2026">Engelberto</option>
+                <option value="Guilherme_2026">Guilherme</option>
+                <option value="Igor Gambarato_2026">Igor Gambarato</option>
+                <option value="Jose Francisco_2026">Jose Francisco</option>
+                <option value="Luciano Contim_2026">Luciano Contim</option>
                 <option value="Lucila_2026">Lucila</option>
+                <option value="Maria Jose Gambarato_2026">Maria Jose Gambarato</option>
+                <option value="Nelson_2026">Nelson</option>
+                <option value="Pedro Junior_2026">Pedro Junior</option>
+                <option value="Primo_2026">Primo Bertin</option>
+                <option value="Silvio JR_2026">Silvio JR</option>
+                <option value="Silvio Neto_2026">Silvio Neto</option>
             </select>
         </div>
 
@@ -338,29 +362,45 @@
         "Celia Drunsta_2026": ["150_2026"],
         "Cerradao_2026": ["53006_2026", "53007_2026"],
         "Engelberto_2026": ["687_2026", "993_2026", "1020_2026", "1021_2026", "1123_2026"],
-        "Lucila_2026": ["1050_2026", "1206_2026"]
+        "Guilherme_2026": ["100_2026", "353_2026", "371_2026", "559_2026", "941_2026", "1080_2026", "1175_2026", "1311_2026", "1324_2026", "1332_2026", "1333_2026"],
+        "Igor Gambarato_2026": ["1227_2026", "1348_2026"],
+        "Jose Francisco_2026": ["1001_2026", "1015_2026", "1124_2026", "1196_2026"],
+        "Luciano Contim_2026": ["209_2026", "211_2026", "282_2026", "435_2026", "960_2026", "1331_2026"],
+        "Lucila_2026": ["1050_2026", "1206_2026"],
+        "Maria Jose Gambarato_2026": ["524_2026"],
+        "Nelson_2026": ["077_2026", "131_2026", "205_2026", "323_2026", "1330_2026"],
+        "Pedro Junior_2026": ["267_2026", "1329_2026"],
+        "Primo_2026": ["216_2026", "441_2026", "476_2026", "976_2026", "989_2026"],
+        "Silvio JR_2026": ["011_2026", "197_2026", "352_2026", "468_2026", "611_2026", "626_2026", "665_2026", "668_2026", "751_2026", "935_2026", "940_2026", "1014_2026", "1243_2026"],
+        "Silvio Neto_2026": ["982_2026", "1002_2026", "1012_2026"]
     };
 
-    // INICIALIZAÇÃO DO MAPA COMPARTILHADO VIA GOOGLE MY MAPS
-document.addEventListener("DOMContentLoaded", function() {
-    // Substitua o link abaixo pelo link de incorporação (compartilhar -> incorporar) do seu My Maps
-    const mapaGeralUrl = "https://www.google.com/maps/d/embed?mid=https://www.google.com/maps/d/edit?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&usp=sharing";
-    
-    const containerMapa = document.getElementById('mapa-kmz');
-    containerMapa.innerHTML = `<iframe src="${mapaGeralUrl}" width="100%" height="100%" style="border:0; border-radius:6px;" allowfullscreen="" loading="lazy"></iframe>`;
-});
+    // INICIALIZAÇÃO DO MAPA KMZ DENTRO DO SITE
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializa o mapa focado na região aproximada de Campo Florido
+        const map = L.map('mapa-kmz').setView([-19.76, -48.57], 11);
 
-function calcularTotalMapas() {
-    let total = 0;
-    for (let fornecedor in dadosMapas) {
-        total += dadosMapas[fornecedor].length;
-    }
-    document.getElementById("totalMapas").textContent = total;
-}
+        // Adiciona mapa de fundo (OpenStreetMap padrão)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-window.onload = calcularTotalMapas;
+        // Inicializa o leitor de arquivos KMZ
+        const kmzControl = L.kmzLayer().addTo(map);
 
-// Mantém as demais funções de atualizarFazendas, abrirMapa e buscarRapido iguais abaixo...
+        // Nome exato do seu arquivo hospedado na raiz do GitHub
+        const kmzUrl = 'mapa_geral.kmz'; 
+
+        // Carrega o arquivo KMZ e enquadra na tela automaticamente
+        kmzControl.load(kmzUrl);
+
+        kmzControl.on('load', function(e) {
+            const bounds = e.layer.getBounds();
+            if (bounds.isValid()) {
+                map.fitBounds(bounds);
+            }
+        });
+    });
 
     function calcularTotalMapas() {
         let total = 0;
@@ -425,7 +465,7 @@ window.onload = calcularTotalMapas;
     }
 
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-        let caminho = `./${fornecedor}/${fazenda}.${extensao}`;
+        let caminho = `${fornecedor}/${fazenda}.${extensao}`;
         return encodeURI(caminho);
     }
 
