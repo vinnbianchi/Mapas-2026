@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de Mapas - SAFRA 2026</title>
     
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://unpkg.com/leaflet-kmz@1.0.8/dist/leaflet-kmz.js"></script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,8 +73,8 @@
             width: auto;
         }
 
-        /* Container para o Mapa Interativo KMZ */
-        .qgis-map-container {
+        /* Container para o Google Maps */
+        .maps-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -91,14 +85,14 @@
             box-sizing: border-box;
             text-align: center;
         }
-        .qgis-map-container h3 {
+        .maps-container h3 {
             margin-top: 0;
             margin-bottom: 15px;
             color: #2e7d32;
             font-size: 18px;
         }
-        /* Definição do tamanho do mapa na tela */
-        #mapa-kmz {
+        /* Definição do tamanho do iframe do Google Maps */
+        #mapa-google {
             height: 450px;
             width: 100%;
             border: 1px solid #ddd;
@@ -243,9 +237,9 @@
     </div>
 </div>
 
-<div class="qgis-map-container">
-    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (KMZ)</h3>
-    <div id="mapa-kmz"></div>
+<div class="maps-container">
+    <h3>🗺️ Visão Geral Interativa das Áreas de Plantio (Google Maps)</h3>
+    <iframe id="mapa-google" src="https://www.google.com/maps/d/edit?mid=1luy8lCmY6jNfSMO4IitClsxZnDPJUc0&usp=sharing" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
 <div class="dashboard">
@@ -374,33 +368,6 @@
         "Silvio JR_2026": ["011_2026", "197_2026", "352_2026", "468_2026", "611_2026", "626_2026", "665_2026", "668_2026", "751_2026", "935_2026", "940_2026", "1014_2026", "1243_2026"],
         "Silvio Neto_2026": ["982_2026", "1002_2026", "1012_2026"]
     };
-
-    // INICIALIZAÇÃO DO MAPA KMZ DENTRO DO SITE
-    document.addEventListener("DOMContentLoaded", function() {
-        // Inicializa o mapa focado na região aproximada de Campo Florido
-        const map = L.map('mapa-kmz').setView([-19.76, -48.57], 11);
-
-        // Adiciona mapa de fundo (OpenStreetMap padrão)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Inicializa o leitor de arquivos KMZ
-        const kmzControl = L.kmzLayer().addTo(map);
-
-        // Nome exato do seu arquivo hospedado na raiz do GitHub
-        const kmzUrl = 'mapa_geral.kmz'; 
-
-        // Carrega o arquivo KMZ e enquadra na tela automaticamente
-        kmzControl.load(kmzUrl);
-
-        kmzControl.on('load', function(e) {
-            const bounds = e.layer.getBounds();
-            if (bounds.isValid()) {
-                map.fitBounds(bounds);
-            }
-        });
-    });
 
     function calcularTotalMapas() {
         let total = 0;
