@@ -196,7 +196,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #e79831;
+            background-color: #25d366;
             color: white;
             border-radius: 50px;
             text-align: center;
@@ -225,7 +225,7 @@
 
 <div class="header-container">
     <img class="logo-coruripe" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb37nV2w2MUoPfUrYi45QPnhOqeMu-pcC6UYKDZGkoOQ&s" alt="Logo Usina Coruripe">
-    <h1 class="main-title">Mapas de Plantio 2026 - Unidade Campo Florido</h1>
+    <h1 class="main-title">Mapas Plantio 2026 - Unidade Campo Florido</h1>
 </div>
 
 <div class="search-box-container">
@@ -433,10 +433,8 @@
     }
 
     function gerarUrlLocal(fornecedor, fazenda, extensao) {
-        const pastaRaiz = "C:/Users/vgbianchi/OneDrive - SA USINA CORURIPE AÇUCAR E ALCOOL/Área de Trabalho/SAFRA 2026/Mapas 2026/";
-        const caminhoBruto = `${pastaRaiz}${fornecedor}/${fazenda}.${extensao}`;
-        const caminhoConvertido = caminhoBruto.split('/').map(part => encodeURIComponent(part)).join('/');
-        return "file:///" + caminhoConvertido;
+        let caminho = `${fornecedor}/${fazenda}.${extensao}`;
+        return encodeURI(caminho);
     }
 
     function abrirMapa() {
